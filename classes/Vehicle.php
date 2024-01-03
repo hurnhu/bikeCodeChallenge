@@ -33,7 +33,7 @@ class Vehicle
             throw new Exception("must provide a number");
         }
         
-        return round($inches / INCHES_IN_MILE, 3);
+        return round($inches / INCHES_IN_MILE, 5);
     }
 }
 ?>

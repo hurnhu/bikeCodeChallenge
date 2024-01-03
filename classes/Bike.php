@@ -33,7 +33,7 @@ class Bike extends Vehicle
         $tireSize = $this->tires[0]->getTireSize();
         $rotations = $this->milesToInches($distanceToRide) / $tireSize;
         for ($i=0; $i < $rotations; $i++) { 
-            var_dump("Currentt distance from start: " . $this->inchesToMiles($i * $tireSize));
+            var_dump("Currentt distance from start: " . sprintf("%f", $this->inchesToMiles($i * $tireSize)));
             foreach ($this->tires as $key => $tire) {
                 try {
                     $tire->rotateTire($rotations);
