@@ -11,5 +11,6 @@ require("classes/Bike.php");
 //     OOP paradigms
 $bike = new Bike(2, "ding");
 $bike->makeNoise();
+$bike->rideBike(1);
 ?>
 
