@@ -2,11 +2,11 @@
 <?php
 
 const INCHES_IN_MILE = 63360;
-class Vehicle
+abstract class Vehicle
 {
     // property declaration
     private $seats = 0;
-    private $sound = "";
+    public $sound = "";
 
     function __construct($numSeats, $sound) {
         $this->seats = $numSeats;
@@ -17,9 +17,7 @@ class Vehicle
         return $this->seats;
     }
 
-    public function makeNoise() : void{
-        echo $this->sound;
-    }
+    abstract public function makeNoise() : void;
 
     public function milesToInches($miles) : int{
         if(!is_numeric($miles)){

@@ -1,6 +1,6 @@
 <?php
-require("Vehicle.php");
-require("Tire.php");
+require_once("Vehicle.php");
+require_once("Tire.php");
 require_once(__DIR__ . "/../exceptions/FlatTireException.php");
 
 class Bike extends Vehicle
@@ -12,6 +12,10 @@ class Bike extends Vehicle
             $tire = new Tire(12, 30, $tireSize);
             $this->tires[] = $tire;
         }
+    }
+
+    public function makeNoise() : void{
+        var_dump($this->sound);
     }
 
     /**
