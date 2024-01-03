@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use App\Exception\FlatTireException;
@@ -7,16 +8,18 @@ class Bike extends Vehicle
 {
     private $tires = [];
     private $logger;
-    function __construct($logger, $numSeats, $sound, $tireSize = 26, $numWheels = 2) {
+    function __construct($logger, $numSeats, $sound, $tireSize = 26, $numWheels = 2)
+    {
         parent::__construct($numSeats, $sound);
         $this->logger = $logger;
-        for ($i=0; $i < $numWheels; $i++) { 
+        for ($i = 0; $i < $numWheels; $i++) {
             $tire = new Tire(12, 30, $tireSize);
             $this->tires[] = $tire;
         }
     }
 
-    public function makeNoise() : void{
+    public function makeNoise(): void
+    {
         $this->logger->info($this->sound);
     }
 
@@ -25,7 +28,8 @@ class Bike extends Vehicle
      *
      * @return integer
      */
-    public function getNumWheels() : int {
+    public function getNumWheels(): int
+    {
         return count($this->tires);
     }
 
@@ -35,12 +39,14 @@ class Bike extends Vehicle
      * @param integer $distanceToRide | distance in miles
      * @return void
      */
-    public function rideBike($distanceToRide = 1) : void {
+    public function rideBike($distanceToRide = 1): void
+    {
         $tireSize = $this->tires[0]->getTireSize();
         $rotations = $this->milesToInches($distanceToRide) / $tireSize;
-        for ($i=0; $i < $rotations; $i++) { 
-            
-            $this->logger->info("Currentt distance from start: " . sprintf("%f", $this->inchesToMiles($i * $tireSize)));
+        for ($i = 0; $i < $rotations; $i++) {
+
+            $this->logger->success("Currentt distance from start: " . sprintf("%f", $this->inchesToMiles($i * $tireSize)));
+            $this->logger->clear();
             foreach ($this->tires as $key => $tire) {
                 try {
                     $tire->rotateTire($rotations);
@@ -53,10 +59,11 @@ class Bike extends Vehicle
         }
     }
 
-    private function checkTire(&$tire) {
-       $this->logger->info("Current PSI " . $tire->getPSI());
-        if(!$tire->checkPSI()){
-           $this->logger->info("pumping tire");
+    private function checkTire(&$tire)
+    {
+        $this->logger->info("Current PSI " . $tire->getPSI());
+        if (!$tire->checkPSI()) {
+            $this->logger->info("pumping tire");
             while (!$tire->checkPSI()) {
                 $tire->pump();
             }
@@ -70,11 +77,11 @@ class Bike extends Vehicle
      * 
      * @return void
      */
-    private function preformMaintenance(){
+    private function preformMaintenance()
+    {
         foreach ($this->tires as $key => $tire) {
             $this->logger->info("Checking tire #" . $key);
             $this->checkTire($tire);
         }
     }
 }
-?>

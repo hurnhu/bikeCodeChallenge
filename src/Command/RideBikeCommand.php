@@ -10,10 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 use App\Service\Bike;
+use App\Service\Motorcycle;
 
 #[AsCommand(
     name: 'rideBike',
-    description: 'Take your bike for a ride!',
+    description: 'Take your bike for a ride! takes 2 arguments, how many miles to ride  and what you want to ride motorcycle or bike (m/b)',
 )]
 class RideBikeCommand extends Command
 {
@@ -25,25 +26,31 @@ class RideBikeCommand extends Command
     protected function configure(): void
     {
         $this
-        ->addArgument('miles', InputArgument::OPTIONAL, 'how many miles to ride')
-        ->addArgument('type', InputArgument::OPTIONAL, 'm for motorcycle, b for bike')
-        ;
+            ->addArgument('miles', InputArgument::REQUIRED, 'how many miles to ride')
+            ->addArgument('type', InputArgument::OPTIONAL, 'm for motorcycle, b for bike');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('miles');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        $miles = $input->getArgument('miles');
+        $type = $input->getArgument('type');
+
+        if ($miles) {
+            $io->note(sprintf('You passed an argument: %s', $miles));
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-        $bike = new Bike($io, 2, "ding");
-        $bike->makeNoise();
-        $bike->rideBike(1);
-        
+        if ($type == 'm') {
+            $motorCycle = new Motorcycle($io, 2, "VROOOOOOM");
+            $motorCycle->start();
+            $motorCycle->rideBike($miles);
+        } else {
+            $bike = new Bike($io, 2, "ding");
+            $bike->rideBike($miles);
+        }
+        $motorCycle->makeNoise();
+
         return Command::SUCCESS;
     }
 }

@@ -98,13 +98,10 @@
       <tag name="container.error" message="Cannot autowire service &quot;App\Service\Bike&quot;: argument &quot;$logger&quot; of method &quot;__construct()&quot; has no type-hint, you should configure its value explicitly."/>
     </service>
     <service id="App\Service\Motorcycle" class="App\Service\Motorcycle" autowire="true" autoconfigure="true">
-      <tag name="container.error" message="Cannot autowire service &quot;App\Service\Motorcycle&quot;: argument &quot;$numSeats&quot; of method &quot;__construct()&quot; has no type-hint, you should configure its value explicitly."/>
+      <tag name="container.error" message="Cannot autowire service &quot;App\Service\Motorcycle&quot;: argument &quot;$logger&quot; of method &quot;__construct()&quot; has no type-hint, you should configure its value explicitly."/>
     </service>
     <service id="App\Service\Tire" class="App\Service\Tire" autowire="true" autoconfigure="true">
       <tag name="container.error" message="Cannot autowire service &quot;App\Service\Tire&quot;: argument &quot;$numSpokes&quot; of method &quot;__construct()&quot; has no type-hint, you should configure its value explicitly."/>
-    </service>
-    <service id="App\index" class="App\index" autowire="true" autoconfigure="true">
-      <tag name="container.error" message="Warning: require_once(classes/Bike.php): Failed to open stream: No such file or directory"/>
     </service>
     <service id="controller_resolver" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver">
       <tag name="monolog.logger" channel="request"/>
